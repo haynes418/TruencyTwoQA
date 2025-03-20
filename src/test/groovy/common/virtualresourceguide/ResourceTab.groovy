@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$x
  *
  * @author lhaynes
  */
-class VRGResourceTab {
+class ResourceTab {
 
     /**Title**/
     public SelenideElement resourceTitle = $x("//h1[contains(.,'Resources')]")

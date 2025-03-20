@@ -1,7 +1,6 @@
 package common.virtualresourceguide
 
-import com.codeborne.selenide.SelenideElement
-import static org.junit.jupiter.api.Assertions.*
+
 import static com.codeborne.selenide.Condition.*
 
 /**
@@ -10,29 +9,38 @@ import static com.codeborne.selenide.Condition.*
  * @author lhaynes
  */
 class VirtualResourceGuide {
-    /**HOST URL**/
-    static final String hostURL = "https://truancy2.dranspo.se"
+    final static String localURL = "http://localhost:3000"
+    final static String dockerURL = "https://truancy2.dranspo.se"
+    String hostURL
+
+    VirtualResourceGuide(boolean isLocal = false) {
+        hostURL = isLocal ? localURL : dockerURL
+    }
 
     /**HEADER**/
-    VRGHeader header = new VRGHeader()
+    Header header = new Header()
+
+    /**FAQ Tab**/
+    FAQTab faqTab = new FAQTab()
 
     /**Welcome Tab**/
-    VRGWelcomeTab welcomeTab = new VRGWelcomeTab()
+    WelcomeTab welcomeTab = new WelcomeTab()
 
     /**Resource Tab**/
-    VRGResourceTab resourceTab = new VRGResourceTab()
+    ResourceTab resourceTab = new ResourceTab()
 
     /**Decision Tree Tab**/
-    VRGDecisionTreeTab decisionTreeTab = new VRGDecisionTreeTab()
+    DecisionTreeTab decisionTreeTab = new DecisionTreeTab()
 
     boolean navigateToTab(String tabName) {
         def tabs =
                 [
-                        welcome     : [header.welcomeNavBtn, welcomeTab.welcomeTitleElement],
+                        faq         : [header.faqNavBtn, faqTab.faqTitle],
+                        welcome     : [header.welcomeNavBtn, welcomeTab.welcomeTitle],
                         resources   : [header.resourceNavBtn, resourceTab.resourceTitle],
                         decisionTree: [header.decisionTreeNavBtn, decisionTreeTab.decisionTreeTitleElement]
                 ]
-        def tab = tabs.find {it.key.equalsIgnoreCase(tabName)}
+        def tab = tabs.find { it.key.equalsIgnoreCase(tabName) }
 
         tab.value[0].click()
         tab.value[1].shouldBe(visible)

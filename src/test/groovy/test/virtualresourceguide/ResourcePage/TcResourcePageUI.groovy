@@ -1,9 +1,7 @@
-package test.ResourcePage
+package test.virtualresourceguide.ResourcePage
 
-import common.virtualresourceguide.VRGResourceTab
 import common.virtualresourceguide.VirtualResourceGuide
 import test.RunTest
-import common.virtualresourceguide.VRGWelcomeTab
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -12,7 +10,7 @@ import static com.codeborne.selenide.CollectionCondition.*
 import static com.codeborne.selenide.Selenide.open
 
 class TcResourcePageUI extends RunTest {
-    VirtualResourceGuide vrg = new VirtualResourceGuide()
+    VirtualResourceGuide vrg = new VirtualResourceGuide(true)
 
     @BeforeEach
     void setUp() {
@@ -40,6 +38,11 @@ class TcResourcePageUI extends RunTest {
     }
 
     @Test
+    /**
+     * Test that each collapsable tab has a table in it
+     * @AC - Collapsable table is present. Expected number of columns are displayed for each table
+     * @author lhaynes
+     */
     void viewTableTest() {
         def resourceTab = vrg.resourceTab
 
@@ -49,21 +52,20 @@ class TcResourcePageUI extends RunTest {
 
         //Open random row, table should be visible
         def collapseRows = resourceTab.collapseRowElements
-        def randomNumber = new Random().nextInt(0, collapseRows.size())
-        def row = collapseRows[randomNumber]
-        row.click()
-        displayedTable.shouldBe(visible)
+        for(def row : collapseRows){
+            row.click()
+            displayedTable.shouldBe(visible)
 
-        //Table has correct header text and number of columns
-        def displayedTableHeaders = resourceTab.displayedTableHeaders
-        displayedTableHeaders
-                .shouldBe(size(4))
-                .shouldHave(texts(
-                        "Name",
-                        "Phone Number",
-                        "Address",
-                        "Description"
-                ))
+            //Table has correct header text and number of columns
+            def displayedTableHeaders = resourceTab.displayedTableHeaders
+            displayedTableHeaders
+                    .shouldBe(size(4))
+                    .shouldHave(texts(
+                            "Name",
+                            "Phone Number",
+                            "Address",
+                            "Description"
+                    ))
+        }
     }
-
 }

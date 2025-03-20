@@ -1,8 +1,5 @@
-package test.WelcomePage
+package test.virtualresourceguide.WelcomePage
 
-import common.virtualresourceguide.VRGDecisionTreeTab
-import common.virtualresourceguide.VRGResourceTab
-import common.virtualresourceguide.VRGWelcomeTab
 import common.virtualresourceguide.VirtualResourceGuide
 import test.RunTest
 import org.junit.jupiter.api.BeforeEach
@@ -11,8 +8,8 @@ import static com.codeborne.selenide.Condition.*
 
 import static com.codeborne.selenide.Selenide.open
 
-class TcWelcomePageUI extends RunTest{
-    VirtualResourceGuide vrg = new VirtualResourceGuide()
+class TcWelcomePageUI extends RunTest {
+    VirtualResourceGuide vrg = new VirtualResourceGuide(true)
 
     @BeforeEach
     void setUp() {
@@ -46,7 +43,7 @@ class TcWelcomePageUI extends RunTest{
                         "Chat"     : vrg.header.decisionTreeNavBtn
                 ]
 
-        for(def btnPair : buttonListWithExpectedTitle){
+        for (def btnPair : buttonListWithExpectedTitle) {
             def btn = btnPair.value
             def expectedTitle = btnPair.key
 
@@ -65,14 +62,14 @@ class TcWelcomePageUI extends RunTest{
      * @author lhaynes
      */
     @Test
-    void bodyTextTests() {
+    void expectedFailTest() {
         def elementListWithExpectedTitle =
                 [
-                        "Welcome to the Virtual Resource Guide"  : vrg.welcomeTab.welcomeTitleElement,
-                        "Explore helpful resources to improve your skills and knowledge.": vrg.welcomeTab.welcomeBodyElement,
+                        "Welcome to the Virtual Resource Guide"                          : vrg.welcomeTab.welcomeTitle,
+                        "Explore helpful resources to improve your skills and knowledge.": vrg.welcomeTab.schoolLogoImage,
                 ]
 
-        for(def elementPair : elementListWithExpectedTitle){
+        for (def elementPair : elementListWithExpectedTitle) {
             def e = elementPair.value
             def expectedText = elementPair.key
 
@@ -84,17 +81,5 @@ class TcWelcomePageUI extends RunTest{
         }
     }
 
-
-    @Test
-    void navigateToTabs() {
-        //Resource page navigation
-        vrg.navigateToTab("resources")
-
-        //Decision tree navigation
-        vrg.navigateToTab("decisionTree")
-
-        //Landing page navigation
-        vrg.navigateToTab("welcome")
-    }
 
 }

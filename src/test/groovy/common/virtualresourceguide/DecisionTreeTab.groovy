@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.$x
  *
  * @author lhaynes
  */
-class VRGDecisionTreeTab {
+class DecisionTreeTab {
 
     /**Title**/
     public SelenideElement decisionTreeTitleElement = $x("//h3")
