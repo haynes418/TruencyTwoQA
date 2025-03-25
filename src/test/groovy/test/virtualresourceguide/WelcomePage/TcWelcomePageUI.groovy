@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Condition.*
 import static com.codeborne.selenide.Selenide.open
 
 class TcWelcomePageUI extends RunTest {
-    VirtualResourceGuide vrg = new VirtualResourceGuide(true)
+    VirtualResourceGuide vrg = new VirtualResourceGuide()
 
     @BeforeEach
     void setUp() {
@@ -56,30 +56,6 @@ class TcWelcomePageUI extends RunTest {
 
     }
 
-    /**
-     * Test concerning the displayed text on the welcome page
-     * @AC - Welcome title and description are present with expected text
-     * @author lhaynes
-     */
-    @Test
-    void expectedFailTest() {
-        def elementListWithExpectedTitle =
-                [
-                        "Welcome to the Virtual Resource Guide"                          : vrg.welcomeTab.welcomeTitle,
-                        "Explore helpful resources to improve your skills and knowledge.": vrg.welcomeTab.schoolLogoImage,
-                ]
-
-        for (def elementPair : elementListWithExpectedTitle) {
-            def e = elementPair.value
-            def expectedText = elementPair.key
-
-            //Element should be present
-            e.shouldBe(visible)
-
-            //Element should have expected text
-            e.shouldBe(text(expectedText))
-        }
-    }
 
 
 }

@@ -20,11 +20,15 @@ class ResourceTab {
     /**Collapse Elements**/
     public SelenideElement collapseContainer = $x("//div[@role='tablist']")
 
-    public ElementsCollection collapseRowElements = $$x("//div[@role='tablist']/div")
+    public ElementsCollection collapseRowElements = $$x("//div[@class='ant-collapse-header']")
 
     /**Table Elements**/
     public SelenideElement displayedTable = $x("//div[contains(@class, 'ant-collapse-item-active')]//table")
 
     public ElementsCollection displayedTableHeaders = $$x("//div[contains(@class, 'ant-collapse-item-active')]//th")
+
+    public ElementsCollection displayedURLs = $$x("//td/a")
+
+    public SelenideElement errorURLDisplay = $x("//h1[contains(.,'404 Not Found')]")
 
 }
