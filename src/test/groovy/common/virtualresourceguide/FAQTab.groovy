@@ -12,6 +12,6 @@ class FAQTab {
     SelenideElement faqTitle = $x("//h2[@class='faq-title']")
 
     /**Body**/
-    SelenideElement faqBody = $x("//p[@class='faq-text']")
+    ElementsCollection faqBodyItems = $$x("//div[@class='faq-container']//div[@class='faq-item']")
 
 }

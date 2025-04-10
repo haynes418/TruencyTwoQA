@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Condition.*
  */
 class VirtualResourceGuide {
     final static String localURL = "http://localhost:3000"
-    final static String dockerURL = "https://truancy2.dranspo.se"
+    final static String dockerURL = "https://truancy2-osu.nrp-nautilus.io"
     String hostURL
 
     VirtualResourceGuide(boolean isLocal = false) {
@@ -44,5 +44,32 @@ class VirtualResourceGuide {
 
         tab.value[0].click()
         tab.value[1].shouldBe(visible)
+    }
+
+    boolean loginToPage(String username = "admin", String password = "password") {
+        if(header.logoutNavBtn.isDisplayed()){
+            System.out.println("Already logged into page.")
+            return true
+        }
+
+        header.loginNavBtn.click()
+
+        if(!(header.loginModal.userNameInput.setValue(username).value == username)) {
+            System.out.println("ERROR: Could not set input text.")
+            return false
+        }
+
+        if(!(header.loginModal.passwordInpt.setValue(password).value == password)) {
+            System.out.println("ERROR: Could not set input text.")
+            return false
+        }
+
+        header.loginModal.submitBtn.click()
+        if(!header.loginModal.modal.shouldNotBe(visible)){
+            System.out.println("ERROR: Could not login.")
+            return false
+        }
+
+        return true
     }
 }

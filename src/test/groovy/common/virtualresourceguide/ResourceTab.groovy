@@ -17,6 +17,9 @@ class ResourceTab {
     /**Title**/
     public SelenideElement resourceTitle = $x("//h1[contains(.,'Resources')]")
 
+    /**Search Bar**/
+    public SelenideElement searchInput = $x("//input[@type='search']")
+
     /**Collapse Elements**/
     public SelenideElement collapseContainer = $x("//div[@role='tablist']")
 
@@ -31,4 +34,12 @@ class ResourceTab {
 
     public SelenideElement errorURLDisplay = $x("//h1[contains(.,'404 Not Found')]")
 
+    public boolean searchTable(String searchText) {
+        if(!searchInput.displayed) {
+            System.out.println("Error: Could not find search bar.")
+            return false
+        }
+
+        searchInput.val(searchText).pressEnter()
+    }
 }

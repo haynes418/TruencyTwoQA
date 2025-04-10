@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Condition.text
 import static com.codeborne.selenide.Condition.visible
 import static com.codeborne.selenide.Selenide.open
 
-class TcPageNavigation extends RunTest{
+class TcPageNavigation extends RunTest {
     VirtualResourceGuide vrg = new VirtualResourceGuide()
 
     @BeforeEach
@@ -18,19 +18,76 @@ class TcPageNavigation extends RunTest{
     }
 
     /**
+     * Test to ensure all navigation buttons are present with the correct titles
+     * @AC - Welcome, Resource, and Chat button are present
+     * @author lhaynes
+     */
+    @Test
+    void navigationButtonsTests() {
+        //Pre-login
+        def buttonListWithExpectedTitle =
+                [
+                        "Welcome Page": vrg.header.welcomeNavBtn,
+                        "FAQ"         : vrg.header.faqNavBtn,
+                        "Resources"   : vrg.header.resourceNavBtn,
+                        "Chat"        : vrg.header.decisionTreeNavBtn,
+                        "Login"       : vrg.header.loginNavBtn,
+                ]
+
+        for (def btnPair : buttonListWithExpectedTitle) {
+            def btn = btnPair.value
+            def expectedTitle = btnPair.key
+
+            //Button should be present
+            btn.shouldBe(visible)
+
+            //Button should have expected text
+            btn.shouldHave(text(expectedTitle))
+        }
+
+        //Post login
+        def buttonListWithExpectedTitlePostLogin =
+                [
+                        "Welcome Page": vrg.header.welcomeNavBtn,
+                        "FAQ"         : vrg.header.faqNavBtn,
+                        "Resources"   : vrg.header.resourceNavBtn,
+                        "Chat"        : vrg.header.decisionTreeNavBtn,
+                        "File Upload" : vrg.header.fileUploadNavBtn,
+                        "Logout"       : vrg.header.logoutNavBtn,
+                ]
+
+        vrg.loginToPage()
+        for (def btnPair : buttonListWithExpectedTitlePostLogin) {
+            def btn = btnPair.value
+            def expectedTitle = btnPair.key
+
+            //Button should be present
+            btn.shouldBe(visible)
+
+            //Button should have expected text
+            btn.shouldHave(text(expectedTitle))
+        }
+
+    }
+
+    /**
      * Test to open page
      * @AC - Page must open, expected title is displayed
      * @author lhaynes
      */
     @Test
-    void navigateToTabs() {
+    void navigateToTabsFunc() {
         //Resource page navigation
         vrg.navigateToTab("resources")
 
         //Decision tree navigation
+        vrg.loginToPage()
         vrg.navigateToTab("decisionTree")
 
         //Landing page navigation
         vrg.navigateToTab("welcome")
+
+        //FAQ Navigation
+        vrg.navigateToTab("faq")
     }
 }
