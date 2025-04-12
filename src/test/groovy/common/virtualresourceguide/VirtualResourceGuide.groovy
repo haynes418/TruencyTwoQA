@@ -1,20 +1,24 @@
 package common.virtualresourceguide
 
+import test.RunClass
+import test.RunTest
 
 import static com.codeborne.selenide.Condition.*
 
 /**
  * Common class for Virtual Resource Guide
- * Page URL: https://truancy2.dranspo.se/
+ * Page URL: https://truancy2-osu.nrp-nautilus.io
  * @author lhaynes
  */
 class VirtualResourceGuide {
     final static String localURL = "http://localhost:3000"
     final static String dockerURL = "https://truancy2-osu.nrp-nautilus.io"
+    RunClass r
     String hostURL
 
     VirtualResourceGuide(boolean isLocal = false) {
         hostURL = isLocal ? localURL : dockerURL
+        r = RunTest.r()
     }
 
     /**HEADER**/
@@ -38,7 +42,7 @@ class VirtualResourceGuide {
                         faq         : [header.faqNavBtn, faqTab.faqTitle],
                         welcome     : [header.welcomeNavBtn, welcomeTab.welcomeTitle],
                         resources   : [header.resourceNavBtn, resourceTab.resourceTitle],
-                        decisionTree: [header.decisionTreeNavBtn, decisionTreeTab.decisionTreeTitleElement]
+                        decisionTree: [header.resourceGuideNavBtn, decisionTreeTab.decisionTreeTitleElement]
                 ]
         def tab = tabs.find { it.key.equalsIgnoreCase(tabName) }
 
@@ -52,7 +56,7 @@ class VirtualResourceGuide {
             return true
         }
 
-        header.loginNavBtn.click()
+        header.facultyLoginNavBtn.click()
 
         if(!(header.loginModal.userNameInput.setValue(username).value == username)) {
             System.out.println("ERROR: Could not set input text.")
@@ -65,7 +69,7 @@ class VirtualResourceGuide {
         }
 
         header.loginModal.submitBtn.click()
-        if(!header.loginModal.modal.shouldNotBe(visible)){
+        if(r.getAlertText() != ""){
             System.out.println("ERROR: Could not login.")
             return false
         }

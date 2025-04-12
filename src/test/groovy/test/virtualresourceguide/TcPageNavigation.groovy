@@ -10,7 +10,7 @@ import static com.codeborne.selenide.Condition.visible
 import static com.codeborne.selenide.Selenide.open
 
 class TcPageNavigation extends RunTest {
-    VirtualResourceGuide vrg = new VirtualResourceGuide()
+    VirtualResourceGuide vrg = new VirtualResourceGuide(true)
 
     @BeforeEach
     void setUp() {
@@ -27,11 +27,11 @@ class TcPageNavigation extends RunTest {
         //Pre-login
         def buttonListWithExpectedTitle =
                 [
-                        "Welcome Page": vrg.header.welcomeNavBtn,
-                        "FAQ"         : vrg.header.faqNavBtn,
-                        "Resources"   : vrg.header.resourceNavBtn,
-                        "Chat"        : vrg.header.decisionTreeNavBtn,
-                        "Login"       : vrg.header.loginNavBtn,
+                        "Welcome Page"  : vrg.header.welcomeNavBtn,
+                        "FAQ"           : vrg.header.faqNavBtn,
+                        "Resources"     : vrg.header.resourceNavBtn,
+                        "Resource Guide": vrg.header.resourceGuideNavBtn,
+                        "Faculty Login" : vrg.header.facultyLoginNavBtn,
                 ]
 
         for (def btnPair : buttonListWithExpectedTitle) {
@@ -48,12 +48,12 @@ class TcPageNavigation extends RunTest {
         //Post login
         def buttonListWithExpectedTitlePostLogin =
                 [
-                        "Welcome Page": vrg.header.welcomeNavBtn,
-                        "FAQ"         : vrg.header.faqNavBtn,
-                        "Resources"   : vrg.header.resourceNavBtn,
-                        "Chat"        : vrg.header.decisionTreeNavBtn,
-                        "File Upload" : vrg.header.fileUploadNavBtn,
-                        "Logout"       : vrg.header.logoutNavBtn,
+                        "Welcome Page"  : vrg.header.welcomeNavBtn,
+                        "FAQ"           : vrg.header.faqNavBtn,
+                        "Resources"     : vrg.header.resourceNavBtn,
+                        "Resource Guide": vrg.header.resourceGuideNavBtn,
+                        "File Upload"   : vrg.header.fileUploadNavBtn,
+                        "Logout"        : vrg.header.logoutNavBtn,
                 ]
 
         vrg.loginToPage()
