@@ -8,7 +8,6 @@ import static com.codeborne.selenide.Selenide.$x
 import static com.codeborne.selenide.Selenide.$$x
 
 /**
- * Page URL: https://truancy2.dranspo.se/
  * Welcome page class for the Homepage
  *
  * @author lhaynes
@@ -20,12 +19,16 @@ class WelcomeTab {
     SelenideElement welcomeBody = $x("//div[@class='welcome-container']//p")
     SelenideElement schoolLogoImage = $x("//img[contains(@class, 'welcome-image')]")
 
-    /**Attendance Section**/
-    SelenideElement attendanceTitle = $x("//h3[@class='attendance-title']")
+    /**Attendance Matters**/
+    SelenideElement attendanceTitle = $x("//h3[@class='attendance-title' and contains(.,'Matters')]")
     SelenideElement attendanceBody = $x("//p[@class='attendance-text']")
 
+    /**Why Attendance Is Important**/
+    SelenideElement whyAttendanceTitle = $x("//h3[@class='attendance-title' and contains(.,'Important')]")
+    ElementsCollection whyAttendanceFacts = $$x("//ul[@class='attendance-facts']//li")
+    SelenideElement whyAttendanceImage = $x("//img[@class='attendance-image']")
+    
     /**Tutorial**/
     SelenideElement tutorialTitle = $x("//h4")
-    ElementsCollection tutorialBody = $$x("//p[@class='tutorial-text']")
-
+    ElementsCollection tutorialBody = $$x("//ul[@class='tutorial-list']//li")
 }

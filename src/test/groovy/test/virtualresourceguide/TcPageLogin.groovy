@@ -56,7 +56,7 @@ class TcPageLogin extends RunTest{
     void failedLogin() {
         assertEquals(false, vrg.loginToPage("Automation Test", "Automation Test"))
 
-        def alertText = getAlertText()
+        def alertText = switchTo().alert().text
         def expectedText = "Invalid login credentials!"
         assertEquals(alertText, expectedText)
     }

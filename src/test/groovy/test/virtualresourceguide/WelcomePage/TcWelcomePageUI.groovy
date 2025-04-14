@@ -5,11 +5,6 @@ import test.RunTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-import static com.codeborne.selenide.Selenide.*
-import static com.codeborne.selenide.Condition.*
-import static com.codeborne.selenide.CollectionCondition.*
-
-
 class TcWelcomePageUI extends RunTest {
     VirtualResourceGuide vrg = new VirtualResourceGuide()
 
@@ -56,11 +51,11 @@ class TcWelcomePageUI extends RunTest {
 
         def expectedTutorialBody =
                 [
-                        "1. Go to the \"Chat\" Button on the navigation bar.",
-                        "2. Follow the prompts to answer questions about the challenges or needs your child may be facing.",
+                        "1. Go to the \"Resource Guide\" Button on the navigation bar.",
+                        "2. Follow the prompts to answer questions about your child's challenges or needs.",
                         "3. Based on your responses, the website will provide links to relevant resources.",
-                        "4. If you would like more information, visit the \"Resources\" or \"FAQ\" pages from the navigation bar.",
-                        "5. If you still have questions, you can always visit the \"FAQ\" page for commonly asked questions or contact Urbana City Schools."
+                        "4. For more information, visit the \"Resources\" or \"FAQ\" pages from the navigation bar.",
+                        "5. If you have further questions, visit the \"FAQ\" page for common inquiries or contact Urbana City Schools."
                 ]
         welcomeTab.tutorialBody.shouldHave(exactTextsCaseSensitive(expectedTutorialBody))
     }

@@ -25,7 +25,7 @@ class Header {
 
     /**Login Modal**/
     String modalXpath = "//div[@class='ant-modal-content' and contains(.,'Login')]"
-    public def loginModal =
+    public Map<String, SelenideElement> loginModal =
             [
                     modal : $x(modalXpath),
                     title : $x(modalXpath + "//div[@class='ant-modal-header']"),

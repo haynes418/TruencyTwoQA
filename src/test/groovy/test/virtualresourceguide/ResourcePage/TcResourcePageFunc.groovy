@@ -5,9 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import test.RunTest
 
-import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan
-import static com.codeborne.selenide.Condition.*
-import static com.codeborne.selenide.Selenide.open
 import static org.junit.jupiter.api.Assertions.assertEquals
 
 class TcResourcePageFunc extends RunTest {

@@ -5,10 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import test.RunTest
 
-import static com.codeborne.selenide.Condition.text
-import static com.codeborne.selenide.Condition.visible
-import static com.codeborne.selenide.Selenide.open
-
 class TcPageNavigation extends RunTest {
     VirtualResourceGuide vrg = new VirtualResourceGuide(true)
 
@@ -82,7 +78,7 @@ class TcPageNavigation extends RunTest {
 
         //Decision tree navigation
         vrg.loginToPage()
-        vrg.navigateToTab("decisionTree")
+        vrg.navigateToTab("resource guide")
 
         //Landing page navigation
         vrg.navigateToTab("welcome")

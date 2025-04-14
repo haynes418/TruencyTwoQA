@@ -13,7 +13,7 @@ import static com.codeborne.selenide.Condition.*
 class VirtualResourceGuide {
     final static String localURL = "http://localhost:3000"
     final static String dockerURL = "https://truancy2-osu.nrp-nautilus.io"
-    RunClass r
+    protected RunClass r
     String hostURL
 
     VirtualResourceGuide(boolean isLocal = false) {
@@ -34,15 +34,15 @@ class VirtualResourceGuide {
     ResourceTab resourceTab = new ResourceTab()
 
     /**Decision Tree Tab**/
-    DecisionTreeTab decisionTreeTab = new DecisionTreeTab()
+    ResourceGuideTab resourceGuideTab = new ResourceGuideTab()
 
     boolean navigateToTab(String tabName) {
         def tabs =
                 [
-                        faq         : [header.faqNavBtn, faqTab.faqTitle],
-                        welcome     : [header.welcomeNavBtn, welcomeTab.welcomeTitle],
-                        resources   : [header.resourceNavBtn, resourceTab.resourceTitle],
-                        decisionTree: [header.resourceGuideNavBtn, decisionTreeTab.decisionTreeTitleElement]
+                        faq             : [header.faqNavBtn, faqTab.faqTitle],
+                        welcome         : [header.welcomeNavBtn, welcomeTab.welcomeTitle],
+                        resources       : [header.resourceNavBtn, resourceTab.resourceTitle],
+                        "resource guide": [header.resourceGuideNavBtn, resourceGuideTab.resourceGuideTitleElement]
                 ]
         def tab = tabs.find { it.key.equalsIgnoreCase(tabName) }
 
@@ -51,25 +51,25 @@ class VirtualResourceGuide {
     }
 
     boolean loginToPage(String username = "admin", String password = "password") {
-        if(header.logoutNavBtn.isDisplayed()){
+        if (header.logoutNavBtn.isDisplayed()) {
             System.out.println("Already logged into page.")
             return true
         }
 
         header.facultyLoginNavBtn.click()
 
-        if(!(header.loginModal.userNameInput.setValue(username).value == username)) {
+        if (!(header.loginModal.userNameInput.setValue(username).value == username)) {
             System.out.println("ERROR: Could not set input text.")
             return false
         }
 
-        if(!(header.loginModal.passwordInpt.setValue(password).value == password)) {
+        if (!(header.loginModal.passwordInpt.setValue(password).value == password)) {
             System.out.println("ERROR: Could not set input text.")
             return false
         }
 
         header.loginModal.submitBtn.click()
-        if(r.getAlertText() != ""){
+        if (r.switchTo().alert().text() != "") {
             System.out.println("ERROR: Could not login.")
             return false
         }
