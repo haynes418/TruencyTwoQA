@@ -1,32 +1,43 @@
 package test
 
 import com.codeborne.selenide.AuthenticationType
+import com.codeborne.selenide.Browser
 import com.codeborne.selenide.CollectionCondition
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Conditional
 import com.codeborne.selenide.Configuration
 import com.codeborne.selenide.Credentials
+import com.codeborne.selenide.DownloadsFolder
+import com.codeborne.selenide.Driver
 import com.codeborne.selenide.ElementsCollection
 import com.codeborne.selenide.LocalStorage
 import com.codeborne.selenide.ModalOptions
 import com.codeborne.selenide.Selenide
+import com.codeborne.selenide.SelenideDriver
 import com.codeborne.selenide.SelenideElement
 import com.codeborne.selenide.SelenideTargetLocator
 import com.codeborne.selenide.SelenideWait
 import com.codeborne.selenide.SessionStorage
 import com.codeborne.selenide.WebElementCondition
 import com.codeborne.selenide.WebElementsCondition
+import com.codeborne.selenide.impl.ThreadLocalSelenideDriver
+import com.codeborne.selenide.impl.WebDriverContainer
+import com.codeborne.selenide.impl.WebDriverThreadLocalContainer
 import com.codeborne.selenide.proxy.SelenideProxyServer
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeAll
 import org.openqa.selenium.By
+import org.openqa.selenium.NoAlertPresentException
 import org.openqa.selenium.OutputType
+import org.openqa.selenium.Proxy
+import org.openqa.selenium.UnhandledAlertException
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import org.openqa.selenium.chrome.ChromeOptions
 import org.openqa.selenium.interactions.Actions
 import org.openqa.selenium.remote.SessionId
 import com.codeborne.selenide.WebDriverRunner
+import org.openqa.selenium.support.events.WebDriverListener
 
 import javax.annotation.CheckReturnValue
 import javax.annotation.Nonnull
@@ -54,8 +65,129 @@ abstract class RunTest {
                                     PAGE METHODS
      ===========================================================================**/
 
-    public String getUrl() {
+    public boolean isAlertPresent() {
+        try {
+            webDriver.switchTo().alert()
+            return true
+        }catch (NoAlertPresentException e) {
+            return false
+        }
+    }
+
+    /**===========================================================================
+                                    WEB DRIVE RUNNER METHODS
+     ===========================================================================**/
+    public WebDriverContainer webdriverContainer = WebDriverRunner.webdriverContainer
+
+    void addListener(WebDriverListener listener) {
+        WebDriverRunner.addListener(listener)
+    }
+
+    void removeListener(WebDriverListener listener) {
+        WebDriverRunner.removeListener(listener)
+    }
+
+    void setWebDriver(WebDriver webDriver) {
+        WebDriverRunner.setWebDriver(webDriver)
+    }
+
+    public void setWebDriver(WebDriver webDriver, @Nullable SelenideProxyServer selenideProxy) {
+        WebDriverRunner.setWebDriver(webDriver, selenideProxy)
+    }
+
+    public void setWebDriver(WebDriver webDriver, @Nullable SelenideProxyServer selenideProxy, DownloadsFolder browserDownloadsFolder) {
+        WebDriverRunner.setWebDriver(webDriver, selenideProxy, browserDownloadsFolder)
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public WebDriver getWebDriver() {
+        return WebDriverRunner.getWebDriver()
+    }
+
+    public void setProxy(@Nullable Proxy webProxy) {
+        WebDriverRunner.setProxy(webProxy)
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public WebDriver getAndCheckWebDriver() {
+        return WebDriverRunner.getAndCheckWebDriver()
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public SelenideProxyServer getSelenideProxy() {
+        return WebDriverRunner.getSelenideProxy()
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public Driver driver() {
+        return WebDriverRunner.driver()
+    }
+
+    @CheckReturnValue
+    @Nullable
+    public DownloadsFolder getBrowserDownloadsFolder() {
+        return WebDriverRunner.getBrowserDownloadsFolder()
+    }
+
+    @CheckReturnValue
+    public boolean hasWebDriverStarted() {
+        return WebDriverRunner.hasWebDriverStarted()
+    }
+
+    @CheckReturnValue
+    public boolean isFirefox() {
+        return WebDriverRunner.isFirefox()
+    }
+
+    @CheckReturnValue
+    public boolean isChrome() {
+        return WebDriverRunner.isChrome()
+    }
+
+    @CheckReturnValue
+    public boolean isIE() {
+        return WebDriverRunner.isIE()
+    }
+
+    @CheckReturnValue
+    public boolean isEdge() {
+        return WebDriverRunner.isEdge()
+    }
+
+    @CheckReturnValue
+    public boolean isHeadless() {
+        return WebDriverRunner.isHeadless()
+    }
+
+    @CheckReturnValue
+    public boolean supportsJavascript() {
+        return WebDriverRunner.supportsJavascript()
+    }
+
+    public void clearBrowserCache() {
+        WebDriverRunner.clearBrowserCache()
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public String source() {
+        return WebDriverRunner.source()
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public String url() {
         return WebDriverRunner.url()
+    }
+
+    @CheckReturnValue
+    @Nonnull
+    public String currentFrameUrl() {
+        return WebDriverRunner.currentFrameUrl()
     }
 
     /**===========================================================================
@@ -347,8 +479,6 @@ abstract class RunTest {
         return Selenide.dismiss(options)
     }
 
-    @Nonnull
-    @CheckReturnValue
     public  SelenideTargetLocator switchTo() {
         return Selenide.switchTo()
     }

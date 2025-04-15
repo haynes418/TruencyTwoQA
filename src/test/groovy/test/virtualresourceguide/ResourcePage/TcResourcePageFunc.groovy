@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import test.RunTest
 
-import static org.junit.jupiter.api.Assertions.assertEquals
 
 class TcResourcePageFunc extends RunTest {
     VirtualResourceGuide vrg = new VirtualResourceGuide(true)
@@ -88,11 +87,11 @@ class TcResourcePageFunc extends RunTest {
                 System.out.println(url + " - " + httpURLConnection.getResponseMessage())
                 return true
             } else {
-                System.out.println(url + " - " + httpURLConnection.getResponseMessage() + " - " + "is a broken link")
+                System.out.println(url + " - " + httpURLConnection.getResponseMessage() + " - " + "Could not confirm, needs additional test")
                 return false
             }
         } catch (Exception e) {
-            System.out.println(url + " - " + "is a broken link")
+            System.out.println(url + " - " + "Could not confirm, needs additional test")
             return false
         }
     }

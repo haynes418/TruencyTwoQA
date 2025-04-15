@@ -5,10 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import test.RunTest
 
-import static com.codeborne.selenide.Condition.text
-import static com.codeborne.selenide.Condition.visible
-import static org.junit.jupiter.api.Assertions.assertEquals
-
 class TcPageLogin extends RunTest{
     VirtualResourceGuide vrg = new VirtualResourceGuide(true)
 

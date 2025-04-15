@@ -69,7 +69,7 @@ class VirtualResourceGuide {
         }
 
         header.loginModal.submitBtn.click()
-        if (r.switchTo().alert().text() != "") {
+        if (r.isAlertPresent()) {
             System.out.println("ERROR: Could not login.")
             return false
         }

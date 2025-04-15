@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Selenide.open
 import static org.junit.jupiter.api.Assertions.*
 
 class TcResourcePageUI extends RunTest {
-    VirtualResourceGuide vrg = new VirtualResourceGuide()
+    VirtualResourceGuide vrg = new VirtualResourceGuide(true)
 
     @BeforeEach
     void setUp() {
